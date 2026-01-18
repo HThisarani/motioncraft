@@ -1,123 +1,150 @@
-Got it 👍
-Here is the **README.md exactly as code**.
-Just **copy–paste this into your `README.md` file**.
+Perfect 👍
+Here is a **clean, professional, modern README** that fits your project **and** matches what companies like **3CS** expect.
 
-````md
-# 🎥 MotionCraft
+You can **copy–paste this directly** into `README.md`.
 
-**MotionCraft** is a cinematic, motion-driven creative studio website built with **React**, **Vite**, and **Tailwind CSS**.  
-It focuses on immersive visuals, smooth animations, and modern interaction patterns inspired by high-end digital studios.
+---
 
-This project demonstrates advanced frontend animation, layout composition, and performance-aware UI engineering.
+```markdown
+# 🎬 MotionCraft
+
+A cinematic, motion-driven creative studio website built with **React**, **Vite**, and **Tailwind CSS**.  
+MotionCraft focuses on delivering immersive user experiences through smooth animations, interactive UI transitions, and a video-based hero section.
+
+🔗 **Live Demo:** https://motioncraft.vercel.app  
+📦 **Repository:** https://github.com/HThisarani/motioncraft
 
 ---
 
 ## ✨ Features
 
-- 🎬 Cinematic hero section with background video  
-- 🧠 Motion-first design philosophy  
-- 🌀 Advanced CSS & JavaScript-driven animations  
-- 🧩 Modular React component architecture  
-- 📱 Fully responsive (desktop → mobile)  
-- ⚡ Built with Vite for fast development & builds  
-- 🎨 Custom animation system (no UI libraries)
+- 🎥 **Cinematic Hero Section**
+  - Fullscreen background video
+  - Motion-driven typography and UI overlays
+
+- 🧭 **Interactive Navigation**
+  - Smooth scrolling between sections
+  - Animated desktop and mobile navigation
+
+- 🧩 **Dynamic Content Sections**
+  - Animated titles and descriptions
+  - Interactive cards with hover effects
+  - Scroll-triggered transitions
+
+- ⚡ **High Performance**
+  - Built with Vite for fast builds
+  - Optimized animations (no unnecessary re-renders)
+  - Lightweight motion effects instead of heavy media
+
+- 📱 **Responsive Design**
+  - Fully responsive across desktop, tablet, and mobile devices
 
 ---
 
-## 🛠 Tech Stack
+## 🛠️ Tech Stack
 
-- **React** – Component-based UI
-- **Vite** – Fast build tool
-- **Tailwind CSS** – Utility-first styling
-- **CSS Animations & Keyframes** – Custom motion logic
-- **Intersection Observer API** – Scroll-triggered animations
-- **HTML5 Video** – Cinematic hero background
+- **Frontend:** React (Vite)
+- **Styling:** Tailwind CSS
+- **Animations:** CSS animations, Intersection Observer, motion-based effects
+- **Media:** MP4 video (hero background)
+- **Deployment:** Vercel
+- **Version Control:** Git & GitHub
 
 ---
 
-## 📂 Project Structure
+## 📁 Project Structure
 
-```txt
-src/
-├── assets/
-│   └── hero-video.mp4
-├── components/
-│   ├── Hero.jsx
-│   ├── Navbar.jsx
-│   └── Section.jsx
-├── pages/
-│   └── Home.jsx
-├── index.css
-└── main.jsx
+```
+
+motioncraft/
+├── src/
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   ├── Hero.jsx
+│   │   └── Section.jsx
+│   ├── pages/
+│   │   └── Home.jsx
+│   ├── assets/
+│   │   └── hero-video.mp4
+│   ├── index.css
+│   └── main.jsx
+├── public/
+├── package.json
+└── README.md
+
 ````
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Started (Local Setup)
 
-### 1️⃣ Clone the repository
-
+### 1. Clone the repository
 ```bash
 git clone https://github.com/HThisarani/motioncraft.git
 cd motioncraft
-```
+````
 
-### 2️⃣ Install dependencies
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 3️⃣ Run development server
+### 3. Run the development server
 
 ```bash
 npm run dev
 ```
 
-The app will be available at:
+Open:
 
-```txt
+```
 http://localhost:5173
 ```
 
 ---
 
-## 🎯 Design Intent
+## 🏗️ Build for Production
 
-MotionCraft was designed to feel:
+```bash
+npm run build
+```
 
-* Minimal but expressive
-* Dark, cinematic, and modern
-* Focused on **motion as storytelling**
-* Inspired by creative studio portfolios rather than traditional business websites
-
-No stock UI kits. No templates.
-Everything is crafted with intent.
+The production-ready files will be generated in the `dist/` folder.
 
 ---
 
-## 🔮 Future Enhancements
+## 🌍 Deployment
 
-* Page-to-page motion transitions
-* CMS-driven content (Headless CMS)
-* WebGL / Three.js background experiments
-* Accessibility motion-reduction mode
-* Performance-optimized video loading
+The project is deployed using **Vercel** with the following configuration:
+
+* **Build Command:** `npm run build`
+* **Output Directory:** `dist`
+* **Framework:** Vite
 
 ---
 
-## 👩‍💻 Author
+## 🎯 Design Philosophy
+
+MotionCraft follows a **motion-first design approach**:
+
+* A single cinematic hero video sets the visual tone
+* Internal sections rely on lightweight, performant animations
+* Focus on smooth transitions rather than heavy media usage
+
+This ensures strong visual impact while maintaining performance and usability.
+
+---
+
+## 👤 Author
 
 **Harasara Thisarani Kuruppu**
-Frontend Developer | UI Motion Enthusiast
-
-GitHub: [https://github.com/HThisarani](https://github.com/HThisarani)
+Undergraduate | Frontend & UI/UX Enthusiast
+🔗 GitHub: [https://github.com/HThisarani](https://github.com/HThisarani)
 
 ---
 
-## 📜 License
+## 📄 License
 
-This project is for learning and portfolio purposes.
-Feel free to explore, fork, and adapt.
+This project is for educational and portfolio purposes.
 
-````
