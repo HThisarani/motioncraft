@@ -1,18 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 
-// Generate space particles
-const generateSectionParticles = () => {
-  return [...Array(30)].map((_, i) => ({
-    id: i,
-    angle: (Math.PI * 2 * i) / 30,
-    velocity: 1.5 + Math.random() * 2.5,
-    color: ['#00d9ff', '#a78bfa', '#60a5fa', '#c084fc'][Math.floor(Math.random() * 4)],
-    size: 3 + Math.random() * 5,
-  }));
-};
-
-const SECTION_PARTICLES = generateSectionParticles();
-
 export default function Section({ id, title, description, items }) {
   const [isVisible, setIsVisible] = useState(false);
   const [time, setTime] = useState(0);
@@ -60,44 +47,8 @@ export default function Section({ id, title, description, items }) {
     >
       {/* Deep Space Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-indigo-950 to-black"></div>
-      
-      {/* Star field */}
-      {[...Array(150)].map((_, i) => (
-        <div
-          key={`star-${i}`}
-          className="absolute rounded-full bg-white"
-          style={{
-            width: `${i % 3 === 0 ? 2 : 1}px`,
-            height: `${i % 3 === 0 ? 2 : 1}px`,
-            left: `${(i * 6.7) % 100}%`,
-            top: `${(i * 11.3) % 100}%`,
-            opacity: 0.2 + (i % 10) * 0.08,
-            animation: `twinkle ${2 + (i % 6)}s ease-in-out ${i * 0.05}s infinite`,
-          }}
-        />
-      ))}
 
-      {/* Explosion Particles */}
-      {isVisible && SECTION_PARTICLES.map((particle) => (
-        <div
-          key={`particle-${particle.id}`}
-          className="absolute rounded-full pointer-events-none"
-          style={{
-            width: `${particle.size}px`,
-            height: `${particle.size}px`,
-            background: particle.color,
-            left: '50%',
-            top: '30%',
-            boxShadow: `0 0 ${particle.size * 6}px ${particle.color}`,
-            animation: `sectionBurst 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards`,
-            '--angle': `${particle.angle}rad`,
-            '--velocity': particle.velocity,
-            opacity: 0,
-          }}
-        />
-      ))}
-
-      {/* Nebula clouds */}
+      {/* Nebula clouds - animated glows */}
       <div 
         className="absolute top-20 left-10 w-[500px] h-[500px] bg-cyan-500/20 rounded-full blur-3xl"
         style={{
@@ -122,26 +73,6 @@ export default function Section({ id, title, description, items }) {
           mixBlendMode: 'screen',
         }}
       />
-
-      {/* Floating cosmic dust */}
-      {[...Array(20)].map((_, i) => {
-        const angle = (i / 20) * Math.PI * 2;
-        return (
-          <div
-            key={`dust-${i}`}
-            className="absolute rounded-full opacity-40"
-            style={{
-              width: `${2 + (i % 3)}px`,
-              height: `${2 + (i % 3)}px`,
-              background: i % 3 === 0 ? '#00d9ff' : i % 3 === 1 ? '#a78bfa' : '#60a5fa',
-              left: `${15 + (i % 8) * 10}%`,
-              top: `${20 + (i % 6) * 12}%`,
-              transform: `translate(${Math.cos(time * 0.3 + angle) * 60}px, ${Math.sin(time * 0.3 + angle) * 60}px)`,
-              boxShadow: `0 0 8px currentColor`,
-            }}
-          />
-        );
-      })}
 
       <div className="max-w-7xl w-full relative z-10">
         {/* Section Header */}
@@ -205,21 +136,6 @@ export default function Section({ id, title, description, items }) {
             >
               {/* Card header */}
               <div className="relative h-56 overflow-hidden">
-                {/* Mini star field in card */}
-                {[...Array(30)].map((_, si) => (
-                  <div
-                    key={`card-star-${si}`}
-                    className="absolute rounded-full bg-white"
-                    style={{
-                      width: '1px',
-                      height: '1px',
-                      left: `${(si * 7.3) % 100}%`,
-                      top: `${(si * 13.7) % 100}%`,
-                      opacity: 0.3,
-                    }}
-                  />
-                ))}
-
                 <div 
                   className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-50 group-hover:opacity-70 transition-all duration-500`}
                   style={{
@@ -286,17 +202,6 @@ export default function Section({ id, title, description, items }) {
       </div>
 
       <style jsx>{`
-        @keyframes sectionBurst {
-          0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-          100% { 
-            opacity: 0; 
-            transform: translate(
-              calc(-50% + cos(var(--angle)) * var(--velocity) * 180px),
-              calc(-50% + sin(var(--angle)) * var(--velocity) * 180px)
-            ) scale(0);
-          }
-        }
-
         @keyframes floatContinuous {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(-15px); }
@@ -353,11 +258,6 @@ export default function Section({ id, title, description, items }) {
             opacity: 1; 
             transform: translate(0, 0) rotate(0deg) scale(1);
           }
-        }
-
-        @keyframes twinkle {
-          0%, 100% { opacity: 0.2; }
-          50% { opacity: 1; }
         }
       `}</style>
     </section>
