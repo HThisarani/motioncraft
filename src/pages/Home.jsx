@@ -271,7 +271,7 @@ export default function Home() {
           <div className="pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-gray-500">
               © 2025 MotionCraft. All rights reserved. Built with 
-              <span className="text-cyan-400 mx-1">passion</span> 
+              <span className="text-gray-500 mx-1">passion</span> 
               and React.
             </p>
             <div className="flex gap-6 text-sm text-gray-500">
