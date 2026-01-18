@@ -1,7 +1,7 @@
 ## Project Title
 
 ```md
-# MotionCraft
+MotionCraft
 ```
 
 ---
