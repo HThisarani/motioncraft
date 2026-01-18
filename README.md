@@ -2,7 +2,8 @@
 
 ```md
 MotionCraft
-Live Demo: https://motioncraft.vercel.app
+Live Demo: https://motioncraft-harasara.vercel.app/
+Source Code: https://github.com/HThisarani/motioncraft
 ```
 
 ---
