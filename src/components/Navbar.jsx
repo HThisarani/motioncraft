@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mounted] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
@@ -15,19 +14,22 @@ export default function Navbar() {
   }, []);
 
   const scrollToSection = (id) => {
+    // Start transition
     setIsTransitioning(true);
     
+    // Wait for transition to build up, then scroll
     setTimeout(() => {
       const el = document.getElementById(id);
       if (el) {
         el.scrollIntoView({ behavior: "smooth" });
         setMobileMenuOpen(false);
       }
-      
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 200);
-    }, 500);
+    }, 300);
+    
+    // End transition
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 800);
   };
 
   const navItems = [
@@ -42,7 +44,7 @@ export default function Navbar() {
       <nav
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-black/80 backdrop-blur-lg py-4 shadow-lg shadow-purple-500/10"
+            ? "bg-black/80 backdrop-blur-lg py-4 shadow-lg shadow-cyan-500/10"
             : "bg-transparent py-6"
         }`}
       >
@@ -51,43 +53,22 @@ export default function Navbar() {
           <div
             onClick={() => scrollToSection("home")}
             className="text-2xl font-bold cursor-pointer hover:scale-105 transition-transform relative group"
-            style={{
-              animation: mounted
-                ? "logoExplode 1s cubic-bezier(0.34, 1.56, 0.64, 1) backwards, floatContinuous 3s ease-in-out 1s infinite"
-                : "none",
-            }}
           >
-            Motion<span className="text-purple-500">Craft</span>
-            <div
-              className="absolute -inset-1 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-lg opacity-0 group-hover:opacity-20 blur-xl transition-opacity"
-              style={{
-                animation: mounted ? "pulse 2s ease-in-out infinite 1s" : "none",
-              }}
-            />
+            Motion<span className="text-cyan-400">Craft</span>
+            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg opacity-0 group-hover:opacity-20 blur-xl transition-opacity" />
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-8">
-            {navItems.map((item, index) => (
+            {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="hover:text-purple-400 transition-colors relative group bg-transparent border-none cursor-pointer"
-                style={{
-                  animation: mounted
-                    ? `slideIn${
-                        index % 2 === 0 ? "Down" : "Up"
-                      } 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) ${
-                        0.2 + index * 0.1
-                      }s backwards, floatContinuous ${
-                        3.5 + index * 0.2
-                      }s ease-in-out ${1.5 + index * 0.1}s infinite`
-                    : "none",
-                }}
+                className="hover:text-cyan-400 transition-colors relative group bg-transparent border-none cursor-pointer text-white"
               >
                 {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-violet-400 to-fuchsia-400 group-hover:w-full transition-all duration-300 shadow-lg shadow-violet-400/50"></span>
-                <span className="absolute -top-1 -right-1 w-2 h-2 bg-violet-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300 shadow-lg shadow-cyan-400/50" />
+                <span className="absolute -top-1 -right-1 w-2 h-2 bg-cyan-400 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping" />
               </button>
             ))}
           </div>
@@ -96,11 +77,6 @@ export default function Navbar() {
           <button
             className="md:hidden text-white relative"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            style={{
-              animation: mounted
-                ? "rotateIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards, floatContinuous 3s ease-in-out 1.2s infinite"
-                : "none",
-            }}
           >
             <svg
               className={`w-6 h-6 transition-transform duration-300 ${
@@ -136,95 +112,106 @@ export default function Navbar() {
           }`}
         >
           <div className="px-6 py-4 bg-black/90 backdrop-blur-lg flex flex-col gap-4">
-            {navItems.map((item, index) => (
+            {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-left hover:text-purple-400 transition-all duration-300 hover:translate-x-2 relative group bg-transparent border-none cursor-pointer"
-                style={{
-                  animation: mobileMenuOpen
-                    ? `slideInLeft 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${
-                        index * 0.1
-                      }s backwards`
-                    : "none",
-                }}
+                className="text-left hover:text-cyan-400 transition-all duration-300 hover:translate-x-2 relative group bg-transparent border-none cursor-pointer text-white"
               >
                 {item.label}
-                <div className="absolute inset-0 bg-gradient-to-r from-violet-500/20 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </button>
             ))}
           </div>
         </div>
-
-        {/* Animations */}
-        <style jsx>{`
-          @keyframes floatContinuous {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-          }
-          @keyframes logoExplode {
-            0% { opacity: 0; transform: scale(0) rotate(-180deg); }
-            60% { transform: scale(1.2) rotate(10deg); }
-            100% { opacity: 1; transform: scale(1) rotate(0); }
-          }
-          @keyframes slideInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          @keyframes slideInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          @keyframes rotateIn {
-            from { opacity: 0; transform: rotate(180deg) scale(0.5); }
-            to { opacity: 1; transform: rotate(0deg) scale(1); }
-          }
-          @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-          }
-          @keyframes pulse {
-            0%, 100% { opacity: 0; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(1.1); }
-          }
-          @keyframes wipeSlide {
-            0% { transform: translateX(-100%); }
-            50% { transform: translateX(0); }
-            100% { transform: translateX(100%); }
-          }
-        `}</style>
       </nav>
 
-      {/* Fast & Smooth Wipe Transition */}
-      <div className={`fixed inset-0 z-[100] pointer-events-none overflow-hidden ${isTransitioning ? 'pointer-events-auto' : ''}`}>
-        {/* Diagonal Wipe */}
+      {/* Modern Page Transition Overlay */}
+      <div 
+        className={`fixed inset-0 z-[100] pointer-events-none transition-opacity duration-300 ${
+          isTransitioning ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        {/* Sliding Wipe Effect */}
         <div
-          className={`absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-blue-600 transition-transform duration-500 ease-in-out ${
-            isTransitioning ? 'translate-x-0' : 'translate-x-full'
-          }`}
+          className="absolute inset-0 bg-gradient-to-br from-cyan-900/30 via-blue-900/30 to-black/30 backdrop-blur-sm"
           style={{
-            clipPath: 'polygon(0 0, 100% 0, 80% 100%, 0% 100%)',
+            transform: isTransitioning ? 'translateX(0%)' : 'translateX(-100%)',
+            transition: 'transform 0.5s cubic-bezier(0.65, 0, 0.35, 1)',
           }}
         />
         
-        {/* Second Layer for Depth */}
+        {/* Glowing Circle Reveal */}
         <div
-          className={`absolute inset-0 bg-gradient-to-br from-blue-600 via-purple-500 to-pink-600 transition-transform duration-500 ease-in-out ${
-            isTransitioning ? 'translate-x-0' : 'translate-x-full'
-          }`}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           style={{
-            clipPath: 'polygon(20% 0, 100% 0, 100% 100%, 40% 100%)',
-            transitionDelay: '100ms',
+            width: '800px',
+            height: '800px',
+            borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(6,182,212,0.2) 0%, transparent 70%)',
+            transform: `translate(-50%, -50%) scale(${isTransitioning ? 1.5 : 0})`,
+            opacity: isTransitioning ? 0.8 : 0,
+            transition: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)',
+            filter: 'blur(40px)',
           }}
         />
 
-        {/* Accent Line */}
+        {/* Radiating Light Beams */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          {[...Array(12)].map((_, i) => {
+            const angle = (i / 12) * 360;
+            return (
+              <div
+                key={i}
+                className="absolute top-0 left-0 origin-top"
+                style={{
+                  width: '2px',
+                  height: '400px',
+                  background: `linear-gradient(180deg, rgba(6,182,212,${isTransitioning ? 0.6 : 0}), transparent)`,
+                  transform: `rotate(${angle}deg)`,
+                  opacity: isTransitioning ? 1 : 0,
+                  transition: `all 0.4s ease-out ${i * 0.03}s`,
+                  boxShadow: '0 0 10px rgba(6,182,212,0.5)',
+                }}
+              />
+            );
+          })}
+        </div>
+
+        {/* Floating Particles */}
+        {[...Array(20)].map((_, i) => {
+          const randomX = (i * 47) % 100;
+          const randomY = (i * 73) % 100;
+          const randomDelay = i * 0.02;
+          
+          return (
+            <div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                width: `${2 + (i % 3)}px`,
+                height: `${2 + (i % 3)}px`,
+                left: `${randomX}%`,
+                top: `${randomY}%`,
+                background: i % 2 === 0 ? '#06b6d4' : '#3b82f6',
+                opacity: isTransitioning ? 0.7 : 0,
+                transform: isTransitioning ? 'scale(1) translateY(0px)' : 'scale(0) translateY(20px)',
+                transition: `all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${randomDelay}s`,
+                boxShadow: '0 0 10px currentColor',
+              }}
+            />
+          );
+        })}
+
+        {/* Center Flash */}
         <div
-          className={`absolute inset-y-0 left-1/2 w-1 bg-white transition-all duration-500 ${
-            isTransitioning ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'
-          }`}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full"
           style={{
-            boxShadow: '0 0 20px rgba(255, 255, 255, 0.8)',
+            background: 'radial-gradient(circle, rgba(6,182,212,0.8), transparent)',
+            opacity: isTransitioning ? 1 : 0,
+            transform: `translate(-50%, -50%) scale(${isTransitioning ? 3 : 0})`,
+            transition: 'all 0.3s ease-out',
+            filter: 'blur(20px)',
           }}
         />
       </div>
