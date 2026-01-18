@@ -29,14 +29,18 @@ export default function Navbar() {
 
   const scrollToSection = (id) => {
     setIsTransitioning(true);
+    setMobileMenuOpen(false);
     
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-        setMobileMenuOpen(false);
-      }
-    }, 100);
+    const element = document.getElementById(id);
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - 100;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
     
     setTimeout(() => {
       setIsTransitioning(false);
