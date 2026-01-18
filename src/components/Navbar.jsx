@@ -10,7 +10,6 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
       
-      // Update active section based on scroll position
       const sections = ["home", "what-we-do", "work", "why-us"];
       for (const id of sections) {
         const el = document.getElementById(id);
@@ -37,11 +36,11 @@ export default function Navbar() {
         el.scrollIntoView({ behavior: "smooth" });
         setMobileMenuOpen(false);
       }
-    }, 200);
+    }, 100);
     
     setTimeout(() => {
       setIsTransitioning(false);
-    }, 600);
+    }, 350);
   };
 
   const navItems = [
@@ -61,7 +60,6 @@ export default function Navbar() {
         }`}
       >
         <div className="container mx-auto px-6 flex justify-between items-center">
-          {/* Logo with magnetic hover effect */}
           <div
             onClick={() => scrollToSection("home")}
             className="text-2xl font-bold cursor-pointer transition-all duration-300 hover:tracking-wider relative group"
@@ -72,7 +70,6 @@ export default function Navbar() {
             <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500/20 via-blue-500/20 to-purple-500/20 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl transition-all duration-500" />
           </div>
 
-          {/* Desktop Menu with glassmorphism */}
           <div className="hidden md:flex items-center gap-2 bg-white/5 backdrop-blur-xl rounded-full px-2 py-2 border border-white/10">
             {navItems.map((item) => (
               <button
@@ -92,12 +89,10 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA Button */}
           <button className="hidden md:block px-6 py-2.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold text-sm hover:shadow-lg hover:shadow-cyan-500/50 transition-all duration-300 hover:scale-105 border-none cursor-pointer">
             Get Started
           </button>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden relative w-10 h-10 flex items-center justify-center rounded-full bg-white/5 backdrop-blur-xl border border-white/10 hover:bg-white/10 transition-all duration-300"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -110,7 +105,6 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Menu with modern slide-in */}
         <div
           className={`md:hidden transition-all duration-500 ease-out ${
             mobileMenuOpen ? "max-h-96 opacity-100 mt-4" : "max-h-0 opacity-0"
@@ -140,35 +134,34 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Ultra-Modern Page Transition */}
+      {/* Liquid Morph Transition */}
       <div 
         className={`fixed inset-0 z-[100] pointer-events-none ${
           isTransitioning ? 'opacity-100' : 'opacity-0'
         }`}
-        style={{
-          transition: 'opacity 0.3s ease-out',
-        }}
+        style={{ transition: 'opacity 0.15s ease-out' }}
       >
-        {/* Vertical Wipe with Gradient */}
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-slate-950 via-cyan-950/50 to-slate-950"
-          style={{
-            transform: isTransitioning ? 'translateY(0%)' : 'translateY(-100%)',
-            transition: 'transform 0.5s cubic-bezier(0.76, 0, 0.24, 1)',
-          }}
-        />
+        {/* Liquid Wipe */}
+        <svg className="absolute inset-0 w-full h-full" style={{ opacity: isTransitioning ? 1 : 0 }}>
+          <defs>
+            <linearGradient id="liquidGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(6,182,212,0)" />
+              <stop offset="50%" stopColor="rgba(6,182,212,0.3)" />
+              <stop offset="100%" stopColor="rgba(6,182,212,0)" />
+            </linearGradient>
+          </defs>
+          <rect
+            width="100%"
+            height="100%"
+            fill="url(#liquidGrad)"
+            style={{
+              transform: isTransitioning ? 'translateX(0)' : 'translateX(-100%)',
+              transition: 'transform 0.3s cubic-bezier(0.65, 0, 0.35, 1)',
+            }}
+          />
+        </svg>
 
-        {/* Diagonal Light Sweep */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(135deg, transparent 0%, rgba(6,182,212,0.1) 48%, rgba(59,130,246,0.2) 50%, rgba(6,182,212,0.1) 52%, transparent 100%)',
-            transform: isTransitioning ? 'translateX(100%)' : 'translateX(-100%)',
-            transition: 'transform 0.6s cubic-bezier(0.76, 0, 0.24, 1)',
-          }}
-        />
-
-        {/* Expanding Circle Pulse */}
+        {/* Morphing Blob */}
         <div
           className="absolute top-1/2 left-1/2"
           style={{
@@ -176,86 +169,47 @@ export default function Navbar() {
             height: '600px',
             marginLeft: '-300px',
             marginTop: '-300px',
-            borderRadius: '50%',
-            border: '2px solid rgba(6,182,212,0.3)',
-            transform: `scale(${isTransitioning ? 2 : 0})`,
-            opacity: isTransitioning ? 0.4 : 0,
-            transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
-          }}
-        />
-
-        {/* Inner Circle */}
-        <div
-          className="absolute top-1/2 left-1/2"
-          style={{
-            width: '300px',
-            height: '300px',
-            marginLeft: '-150px',
-            marginTop: '-150px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(6,182,212,0.2), transparent 70%)',
-            transform: `scale(${isTransitioning ? 1 : 0})`,
+            background: 'radial-gradient(circle, rgba(6,182,212,0.15), rgba(59,130,246,0.1) 50%, transparent 70%)',
+            borderRadius: isTransitioning ? '30% 70% 70% 30% / 30% 30% 70% 70%' : '50%',
+            transform: `scale(${isTransitioning ? 1.5 : 0}) rotate(${isTransitioning ? '45deg' : '0deg'})`,
             opacity: isTransitioning ? 1 : 0,
-            transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
-            filter: 'blur(40px)',
+            transition: 'all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+            filter: 'blur(50px)',
           }}
         />
 
-        {/* Animated Grid Lines */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(8)].map((_, i) => (
-            <div
-              key={`h-${i}`}
-              className="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent"
-              style={{
-                top: `${(i + 1) * 12.5}%`,
-                opacity: isTransitioning ? 0.6 : 0,
-                transform: `scaleX(${isTransitioning ? 1 : 0})`,
-                transition: `all 0.4s ease-out ${i * 0.05}s`,
-              }}
-            />
-          ))}
-          {[...Array(8)].map((_, i) => (
-            <div
-              key={`v-${i}`}
-              className="absolute top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-blue-500/20 to-transparent"
-              style={{
-                left: `${(i + 1) * 12.5}%`,
-                opacity: isTransitioning ? 0.6 : 0,
-                transform: `scaleY(${isTransitioning ? 1 : 0})`,
-                transition: `all 0.4s ease-out ${i * 0.05}s`,
-              }}
-            />
-          ))}
-        </div>
+        {/* Split Screen Slide */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(to right, rgba(6,182,212,0.1) 0%, rgba(6,182,212,0.2) 50%, rgba(6,182,212,0.1) 100%)',
+            clipPath: isTransitioning 
+              ? 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' 
+              : 'polygon(50% 0, 50% 0, 50% 100%, 50% 100%)',
+            transition: 'clip-path 0.25s cubic-bezier(0.87, 0, 0.13, 1)',
+          }}
+        />
 
-        {/* Particle Orbs */}
-        {[...Array(12)].map((_, i) => {
-          const angle = (i / 12) * Math.PI * 2;
-          const radius = 150;
-          const x = Math.cos(angle) * radius;
-          const y = Math.sin(angle) * radius;
-          
-          return (
-            <div
-              key={i}
-              className="absolute top-1/2 left-1/2 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500"
-              style={{
-                width: '8px',
-                height: '8px',
-                transform: isTransitioning 
-                  ? `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) scale(1)` 
-                  : 'translate(-50%, -50%) scale(0)',
-                opacity: isTransitioning ? 0.8 : 0,
-                transition: `all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${i * 0.03}s`,
-                boxShadow: '0 0 20px rgba(6,182,212,0.6)',
-              }}
-            />
-          );
-        })}
+        {/* Diagonal Shutter */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(135deg, transparent 40%, rgba(59,130,246,0.3) 50%, transparent 60%)',
+            transform: isTransitioning ? 'translateX(100%)' : 'translateX(-100%)',
+            transition: 'transform 0.3s ease-out',
+          }}
+        />
+
+        {/* Edge Glow Pulse */}
+        <div
+          className="absolute inset-0 border-4 border-cyan-500/0"
+          style={{
+            borderColor: isTransitioning ? 'rgba(6,182,212,0.3)' : 'rgba(6,182,212,0)',
+            boxShadow: isTransitioning ? 'inset 0 0 60px rgba(6,182,212,0.2)' : 'none',
+            transition: 'all 0.2s ease-out',
+          }}
+        />
       </div>
-
-
     </>
   );
 }
