@@ -1,14 +1,3 @@
-Got it.
-You don’t want **bullet-style or mixed formatting** — you want **clean, clearly separated sections**, where **Step 1, Step 2, Step 3 all visually match** (like your research project README example).
-
-Below is a **professionally structured README section** where **every step is separated, consistent, and formal**.
-
-You can paste this directly into your `README.md`.
-
----
-
-## ✅ **Clean & Professional README Structure (Step-by-Step)**
-
 ### Project Title
 
 ```md
